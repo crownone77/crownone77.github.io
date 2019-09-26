@@ -1,0 +1,87 @@
+<html>
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+		<style>
+		*{
+			font-family: 'Open Sans', sans-serif;
+		}
+		label{
+			font-weight: 600;
+		}
+		</style>
+	</head>
+	<body>
+		<h1>Save for the future calculator</h1>
+		<form action="#" method="post" onsubmit="myFunction()">
+			<label for="salary">What is your salary?</label><br>
+			<input id="salary" type="number"><br><br>
+			<label for="parents">% to give parents?</label><br>
+			<input type="number" id="parents"><br><br>
+			<label for="monthlyexp">Monthly expenditure?</label><br>
+			<input type="number" id="monthlyexp"><br><br>
+			<label for="hdbcost">Cost of HDB? ('000)</label><br>
+			<input type="number" id="hdbcost"><br><br>
+			<label for="years">No. of years?</label><br>
+			<input type="number" id="years"><br><br>
+			<input type="button" value="Calculate!" onclick="myFunction()">
+		</form>
+
+		<p>(This calculation includes 10% tithing)</p>
+		<p>Downpayment: $<span id=downpayment></span> </p>
+		<p>Total Savings: $<span id=totalsavings></span> </p>
+		<p>Total CPF: $<span id=cpf></span> </p>
+
+		<form action="#" method="post" onsubmit="myFunction2()">
+			<label for="cpfused">How much CPF do you want to use?</label><br>
+			<input type="number" id="cpfused"><br><br>
+			<input type="button" value="Calculate!" onclick="myFunction2()">
+		</form>
+	
+		<p>Savings left: $ <span id="savingsleft"></span></p>
+		<p>CPF left: $ <span id="cpfleft"></span></p>
+		<p>Possible? <span id="possible"></span></p>
+
+	</body>
+	<footer>
+		<script>
+			var myFunction = function(){
+				var salary = document.getElementById("salary").value;
+				var parents = document.getElementById("parents").value;
+				var monthlyexp = document.getElementById("monthlyexp").value;
+				var hdbcost = document.getElementById("hdbcost").value;
+				var years = document.getElementById("years").value;
+
+				var cpf = 0.37*salary*12*years;
+				var downpayment = 0.1*hdbcost*1000;
+				var monthlysavings = salary-(0.1*salary)-((parents/100)*salary)-(0.2*salary)-monthlyexp;
+				var totalsavings = 12*monthlysavings*years;
+
+
+				document.getElementById("totalsavings").innerHTML = totalsavings;
+				document.getElementById("cpf").innerHTML = cpf;
+				document.getElementById("downpayment").innerHTML = downpayment;
+			}
+
+			var myFunction2 = function(){
+				var downpayment = document.getElementById("downpayment").innerHTML;
+				var cpf = document.getElementById("cpf").innerHTML;
+				var totalsavings = document.getElementById("totalsavings").innerHTML;
+
+				var cpfused = document.getElementById("cpfused").value;
+				downpayment = downpayment - cpfused;
+
+				var finalsavings = totalsavings - downpayment;
+				var finalcpf = cpf - cpfused;
+
+				document.getElementById("savingsleft").innerHTML = finalsavings;
+				document.getElementById("cpfleft").innerHTML = finalcpf;
+
+				if (finalcpf >= 0 && finalsavings >= 0){
+					document.getElementById("possible").innerHTML = "YES";
+				}else{
+					document.getElementById("possible").innerHTML = "NO";
+				}
+			}
+		</script>
+	</footer>
+</html>
