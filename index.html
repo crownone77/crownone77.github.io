@@ -47,10 +47,15 @@
             var hdbcost = document.getElementById("hdbcost").value;
             var years = document.getElementById("years").value;
 
+            // CPF contribution by employee and employer
             var cpf = 0.37 * salary * 12 * years;
+            // 10% of total hdb cost is the current downpayment
             var downpayment = 0.1 * hdbcost * 1000;
+            // Savings after tithing, parents allowance, CPF, monthly exp
             var monthlysavings = salary - (0.1 * salary) - ((parents / 100) * salary) - (0.2 * salary) - monthlyexp;
             var totalsavings = 12 * monthlysavings * years;
+            // TODO: calculate based on per month so that can find our the number of years to reach target
+            // TODO: find some way to calculate target and work towards it
 
 
             document.getElementById("totalsavings").innerHTML = totalsavings;
